@@ -1,3 +1,5 @@
+import tools.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -71,6 +73,45 @@ public class App {
 
         System.out.println("Status code: " + postResponse.statusCode());
         System.out.println("Body: " + postResponse.body());
+
+
+        //Deserialisera JSON -> POJO
+
+        ObjectMapper mapper = new ObjectMapper();
+        Post post = mapper.readValue(postResponse.body(),
+                Post.class);
+
+        System.out.println(post);
+
+
+        //Serialisera POJO -> JSON, Skicka till WS
+
+        Post newPost = new Post(101,
+                "The Legend of JSON",
+                "Lorem ipsum JSON 12!",
+                0);
+
+        String jsonStr = mapper.writeValueAsString(newPost);
+
+        //Bör inte se id pga @JsonInclude()
+        System.out.println(jsonStr);
+
+
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .uri(URI.create("https://jsonplaceholder.typicode.com/posts"))
+                .POST(HttpRequest.BodyPublishers.ofString(jsonStr))
+                .build();
+
+
+        HttpResponse<String> postResponse2 = client.send(
+                postRequest2,
+                HttpResponse.BodyHandlers.ofString()
+        );
+
+        System.out.println("Status code: " + postResponse2.statusCode());
+        System.out.println("Body: " + postResponse2.body());
 
 
     }

@@ -1,8 +1,12 @@
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class Post {
 
-    private Integer userID;
+    private int userID;
     private String title;
     private String body;
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int id;
 
 
@@ -12,18 +16,18 @@ public class Post {
         this.body = "";
         this.id = 0;
     }
-    public Post(Integer userID, String title, String body, int id) {
+    public Post(int userID, String title, String body, int id) {
         this.userID = userID;
         this.title = title;
         this.body = body;
         this.id = id;
     }
 
-    public Integer getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
