@@ -15,9 +15,13 @@ public class App {
         DiceRoll2 d2 = new DiceRoll2(
                 new RandomlyGeneratedNumbers()
         );
-        System.out.println(d2.asText());
+        //System.out.println(d2.asText());
 
+        DiceRoll2 diceRoll2 = new DiceRoll2(
+                new StubRandomNumbers(5)
+        );
 
+        System.out.println(diceRoll2.asText());
     }
 
 }
