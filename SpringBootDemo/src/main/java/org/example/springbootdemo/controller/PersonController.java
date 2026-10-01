@@ -2,10 +2,9 @@ package org.example.springbootdemo.controller;
 
 
 import org.example.springbootdemo.model.Person;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,16 +12,39 @@ import java.util.List;
 @RequestMapping("/api/")
 public class PersonController {
 
+    //List of all persons
     @GetMapping("person/")
     public List<Person> list() {
 
         return List.of(new Person());
     }
 
+    //Get a specifik person
     @GetMapping("person/{id}")
     public Person get(@PathVariable Long id) {
         return new Person();
     }
+
+    //Post a person
+    @PostMapping("person/")
+    public void post(@RequestBody Person person){
+
+    }
+
+    //Update a person
+    @PutMapping("person/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,
+                                    @RequestBody Person person) {
+
+        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+    }
+
+    //Delete a person
+    @DeleteMapping("person/{id}")
+    public void delete(@PathVariable Long id) {
+
+    }
+
 
 
 }
