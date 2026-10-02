@@ -1,9 +1,19 @@
 package org.example.springbootdemo.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //samma som AUTO_INCREMENT
     private Long id = 0L;
+
+    @Column(name = "name")
     private String name = "";
+
+    @Column(unique = true, nullable = false)
+    //unique - kan inte skapa samma | nullable - får inte vara tom
     private String phone = "";
 
     public Person() {

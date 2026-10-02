@@ -1,6 +1,7 @@
 package org.example.springbootdemo.service;
 
 import org.example.springbootdemo.model.Person;
+import org.example.springbootdemo.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,8 +12,14 @@ import java.util.List;
 @Transactional
 public class PersonService {
 
+    private PersonRepository personRepository;
+
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
     public List<Person> listAll() {
-        return List.of(new Person());
+        return personRepository.findAll();
     }
 
 }
