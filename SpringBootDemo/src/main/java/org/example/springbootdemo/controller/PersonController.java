@@ -29,13 +29,13 @@ public class PersonController {
     //Get a specifik person
     @GetMapping("person/{id}")
     public Person get(@PathVariable Long id) {
-        return new Person();
+        return personService.get(id);
     }
 
     //Post a person
     @PostMapping("person/")
     public void post(@RequestBody Person person){
-
+        personService.save(person);
     }
 
     //Update a person
@@ -49,7 +49,7 @@ public class PersonController {
     //Delete a person
     @DeleteMapping("person/{id}")
     public void delete(@PathVariable Long id) {
-
+        personService.delete(id);
     }
 
 
