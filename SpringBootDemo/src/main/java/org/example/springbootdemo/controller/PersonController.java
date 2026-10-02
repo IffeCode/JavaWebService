@@ -2,6 +2,7 @@ package org.example.springbootdemo.controller;
 
 
 import org.example.springbootdemo.model.Person;
+import org.example.springbootdemo.service.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,17 @@ import java.util.List;
 @RequestMapping("/api/")
 public class PersonController {
 
+    private PersonService personService;
+
+    public PersonController(PersonService personService) {
+        this.personService = personService;
+    }
+
     //List of all persons
     @GetMapping("person/")
     public List<Person> list() {
 
-        return List.of(new Person());
+        return personService.listAll();
     }
 
     //Get a specifik person
