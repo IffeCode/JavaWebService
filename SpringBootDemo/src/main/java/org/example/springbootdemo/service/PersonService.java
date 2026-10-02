@@ -12,7 +12,7 @@ import java.util.List;
 public class PersonService {
 
     public List<Person> listAll() {
-        return
+        return List.of(new Person());
     }
 
 }
