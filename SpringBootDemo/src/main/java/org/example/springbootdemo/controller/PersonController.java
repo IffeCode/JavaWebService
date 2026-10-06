@@ -23,6 +23,10 @@ public class PersonController {
 
     //List of all persons
     @GetMapping("person/")
+//    @CrossOrigin(
+//            origins = { "http://127.0.0.1:5500", "http://localhost:5050" },
+//            methods = RequestMethod.GET
+//    )
     public List<Person> list() {
 
         return personService.listAll();
