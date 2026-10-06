@@ -1,6 +1,8 @@
 package org.example.springbootdemo.controller;
 
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.example.springbootdemo.model.Person;
 import org.example.springbootdemo.service.PersonService;
 import org.springframework.http.HttpStatus;
@@ -34,21 +36,22 @@ public class PersonController {
 
     //Post a person
     @PostMapping("person/")
-    public void post(@RequestBody Person person){
+    public void post(@Valid @RequestBody Person person){
         personService.save(person);
     }
 
     //Update a person
     @PutMapping("person/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,
-                                    @RequestBody Person person) {
+    public ResponseEntity<?> update(@Valid
+                                    @RequestBody Person person,
+                                    @PathVariable Long id) {
 
         return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
     }
 
     //Delete a person
     @DeleteMapping("person/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable @Min(1) Long id) {
         personService.delete(id);
     }
 
