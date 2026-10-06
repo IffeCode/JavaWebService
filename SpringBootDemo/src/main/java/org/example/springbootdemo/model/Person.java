@@ -1,6 +1,10 @@
 package org.example.springbootdemo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Person {
@@ -10,10 +14,15 @@ public class Person {
     private Long id = 0L;
 
     @Column(name = "name")
+    @Size(min = 2, message = "Name must be atleast 2 characters long!")
+    @NotBlank(message = "Name cannot be blank!")
     private String name = "";
 
     @Column(unique = true, nullable = false)
     //unique - kan inte skapa samma | nullable - får inte vara tom
+    @NotEmpty
+    @Pattern(regexp = "^\\+[1-9]\\d{1,14}$",
+            message = "You have to enter the phone in international format (E.164)")
     private String phone = "";
 
     public Person() {
