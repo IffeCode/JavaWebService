@@ -41,11 +41,20 @@ public class AuthorService {
     }
 
     //uppdaterar en befintlig författare
-    public Author updateAuthor(Long id, Author author) {
-        Author existingAuthor = findById(id);
+    public Author updateAuthor(Long id, Author updatedAuthor) {
+        Author existingAuthor = authorRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Author not found with id: " + id
+                ));
 
-        existingAuthor.setFirstName(author.getFirstName());
-        existingAuthor.setLastName(author.getLastName());
+        if (updatedAuthor.getFirstName() != null) {
+            existingAuthor.setFirstName(updatedAuthor.getFirstName());
+        }
+
+        if (updatedAuthor.getLastName() != null) {
+            existingAuthor.setLastName(updatedAuthor.getLastName());
+        }
 
         return authorRepository.save(existingAuthor);
     }
