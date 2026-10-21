@@ -50,5 +50,16 @@ public class AuthorService {
         return authorRepository.save(existingAuthor);
     }
 
+    //Radera en författare
+    public void deleteAuthor(Long id) {
+        authorRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Author not found with id: " + id
+                ));
+
+        authorRepository.deleteById(id);
+    }
+
 
 }
