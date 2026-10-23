@@ -34,6 +34,49 @@ public class BookService {
                         ));
     }
 
+    //Skapar en ny bok
+    public Book create(Book book) {
+        book.setId(null);
+        return bookRepository.save(book);
+    }
+
+    /*
+    Hämtar bok baserat på id för att uppdatera,
+    om boken inte finns får användaren upp NOT FOUND
+    if-satser för att kunna uppdatera enskilda rader utan att behöva uppdatera samtliga samtidigt
+    och att få null på värden som inte ändras i uppdateringen
+     */
+    public Book update(Long id, Book book) {
+        Book existingBook = bookRepository.findById(id)
+                .orElseThrow(()->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Book with id " + id + " not found."));
+
+        if (book.getTitle() != null) {
+            existingBook.setTitle(book.getTitle());
+        }
+        if (book.getDescription() != null) {
+            existingBook.setDescription(book.getDescription());
+        }
+        if (book.getAuthor() != null) {
+            existingBook.setAuthor(book.getAuthor());
+        }
+
+        return bookRepository.save(existingBook);
+    }
+
+    //Hämtar book baserat på id för att radera
+    public void deleteById(Long id) {
+        bookRepository.findById(id)
+                .orElseThrow(()->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Book with id " + id + " not found."
+                        ));
+        bookRepository.deleteById(id);
+    }
+
 
 
 }
