@@ -52,7 +52,15 @@ public class AuthorController {
         return authorService.updateAuthor(id, updatedAuthor);
     }
 
+    /*
+    Ger 204 no content istället för 200 ok,
+    tydligare context för användaren om vad som skett!
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        authorService.deleteAuthor(id);
 
-
+        return ResponseEntity.noContent().build();
+    }
 
 }
