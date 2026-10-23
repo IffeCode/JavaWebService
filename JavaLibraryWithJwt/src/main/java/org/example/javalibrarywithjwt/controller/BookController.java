@@ -34,6 +34,7 @@ public class BookController {
 
     //Skapar en bok
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Book create(@Valid @RequestBody Book book) {
         return bookService.create(book);
     }
@@ -46,6 +47,7 @@ public class BookController {
     }
     //Raderar en bok
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         bookService.deleteById(id);
     }
