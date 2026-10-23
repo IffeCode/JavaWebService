@@ -2,10 +2,9 @@ package org.example.javalibrarywithjwt.controller;
 
 import org.example.javalibrarywithjwt.model.Author;
 import org.example.javalibrarywithjwt.service.AuthorService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +28,23 @@ public class AuthorController {
     public Author findById(@PathVariable Long id) {
         return authorService.findById(id);
     }
+
+    /*
+    ResponseEntity istället för public Author create -
+    får 201 created istället för 200 ok,
+    tydligare med 201!
+     */
+    @PostMapping
+    public ResponseEntity<Author> create(
+            @RequestBody Author author) {
+        Author createdAuthor = authorService.create(author);
+
+        return ResponseEntity.status(
+                HttpStatus.CREATED)
+                .body(createdAuthor);
+    }
+
+
 
 
 }
