@@ -1,5 +1,6 @@
 package org.example.javalibrarywithjwt.controller;
 
+import jakarta.validation.Valid;
 import org.example.javalibrarywithjwt.model.Author;
 import org.example.javalibrarywithjwt.service.AuthorService;
 import org.springframework.http.HttpStatus;
@@ -36,12 +37,19 @@ public class AuthorController {
      */
     @PostMapping
     public ResponseEntity<Author> create(
-            @RequestBody Author author) {
+            @Valid @RequestBody Author author) {
         Author createdAuthor = authorService.create(author);
 
         return ResponseEntity.status(
                 HttpStatus.CREATED)
                 .body(createdAuthor);
+    }
+
+    //uppdaterar författare
+    @PutMapping("/{id}")
+    public Author update(@PathVariable Long id,
+                         @Valid @RequestBody Author updatedAuthor) {
+        return authorService.updateAuthor(id, updatedAuthor);
     }
 
 
