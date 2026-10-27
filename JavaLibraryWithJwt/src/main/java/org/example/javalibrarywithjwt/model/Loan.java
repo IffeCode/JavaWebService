@@ -33,6 +33,6 @@ public class Loan {
 
     private LocalDate returnDate;
 
-
-
+    public Loan() {
+    }
 }
