@@ -20,7 +20,7 @@ public class Loan {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "book:id", nullable = false)
+    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
     @NotNull
