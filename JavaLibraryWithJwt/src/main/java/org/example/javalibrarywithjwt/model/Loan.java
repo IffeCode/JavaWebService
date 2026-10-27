@@ -35,4 +35,13 @@ public class Loan {
 
     public Loan() {
     }
+
+    public Loan(Long id, User user, Book book, LocalDate loanDate, LocalDate dueDate, LocalDate returnDate) {
+        this.id = id;
+        this.user = user;
+        this.book = book;
+        this.loanDate = loanDate;
+        this.dueDate = dueDate;
+        this.returnDate = returnDate;
+    }
 }
